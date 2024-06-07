@@ -1,0 +1,159 @@
+
+.inicio{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    display: grid;
+    grid-template: 
+    ". . ."2vh
+    ". CAM ."8vh
+    ". VEN ."auto
+    ". . ."2vh/
+    auto minmax(70vh,100vh) auto;
+    gap: 2vh;
+    overflow: hidden;
+}
+
+.particulasfondo{
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    overflow: hidden;
+}
+.cambiaranio{
+    display: grid;
+    grid-template: 
+    "MES AÑO EST"auto/
+    33% auto 33%;
+    grid-area: CAM;
+    overflow: hidden;
+    background-color: #d7e4ff;
+    border-radius: 2vh;
+}
+#año{
+    border: none;
+    background-color: transparent;
+    grid-area: AÑO;
+    border-radius: 2vh;
+}
+#estaciones{
+    border: none;
+    background-color: transparent;
+    grid-area: EST;
+    border-radius: 2vh;
+}
+#mes{
+    border: none;
+    background-color: transparent;
+    grid-area: MES;
+    border-radius: 2vh;
+}
+.centro2{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.ventana{
+    grid-area: VEN;
+    background-color: #f2f2f2;
+    display: grid;
+    overflow-x: auto;
+    grid-template: 
+    ". . ."2vh
+    ". SEM ."6vh
+    ". . ."1vh
+    ". CAL ."auto
+    ". . ."2vh/
+    2vh auto 2vh;
+    border-radius: 2vh;
+}
+.semana{
+    display: grid;
+    grid-template-columns: repeat(7,14.2857142857%);
+    grid-area: SEM;
+    border-radius: 1vh;
+}
+.diasem div{
+    width: 100%;
+    height: 100%;
+    font-size: 2vh;
+}
+.calendario{
+    grid-area: CAL;
+    background-color: transparent;
+    border-radius: 1vh;
+    display: grid;
+    grid-template-columns: repeat(7,14.2857142857%);
+    grid-template-rows: repeat(6,16.6666666667%);
+}
+.diasem{
+    background-color: #d7e4ff;
+    position: relative;
+    font-size: 2.5vh;
+    border: #f2f2f2 solid;
+    border-radius: 1vh;
+    overflow: hidden;
+}
+.Verano{
+    background-color: #edf9a2;
+    color: #a39c21;
+}
+.Otoño{
+    background-color: #ffe4b5;
+    color: rgb(219, 154, 34);
+    
+}
+.Invierno{
+    background-color: #d7e4ff;
+    color: rgb(94, 140, 240);
+    
+}
+.Primavera{
+    background-color: #ffc9f8;
+    color: #fb50e2;
+}
+.Verano2{
+    color: #a39c21;
+}
+.Otoño2{
+    color: rgb(219, 154, 34);
+    
+}
+.Invierno2{
+    color: rgb(94, 140, 240);
+    
+}
+.Primavera2{
+    color: #fb50e2;
+}
+.dias{
+    overflow: hidden;
+    background-color: white;
+    font-size: 6vh;
+    text-overflow: none;
+    border: #e7e8eb solid;
+    border-radius: 1vh;
+}
+.festividad{
+    overflow: hidden;
+    background-color: #ffd7d7;
+    font-size: 6vh;
+    text-overflow: none;
+    border: #e7e8eb solid;
+    border-radius: 1vh;
+}
+.hoy{
+    overflow: hidden;
+    background-color: #feffd7;
+    font-size: 6vh;
+    text-overflow: none;
+    border: #e7e8eb solid;
+    border-radius: 1vh;
+    text-decoration:underline;
+}

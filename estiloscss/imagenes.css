@@ -1,0 +1,72 @@
+/*IMAGENES*/
+.equis{
+    background-image: URL(../imagenes/x.png);
+    background-size: 2vh;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+.mas{
+    background-image: URL(../imagenes/mas.png);
+    background-size: 2vh;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+.lupa{
+    background-image: URL(../imagenes/lupa.png);
+    background-size: 2vh;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+.logo{
+    background-image: URL(../imagenes/logo.png);
+}
+.signomas{
+    background-image: URL(../imagenes/signomas.png);
+}
+.ojo{
+    background-image: URL(../imagenes/ojo.png);
+}
+.basura{
+    background-image: URL(../imagenes/basura.png);
+}
+.avion{
+    background-image: URL(../imagenes/avion.png);
+}
+.intercambio{
+    background-image: URL(../imagenes/intercambio.png);
+}
+.mapa{
+    background-image: URL(../imagenes/mapa.png);
+}
+.usuario{
+    background-image: URL(../imagenes/user.png);
+}
+.logoboton{
+    background-image: URL(../imagenes/botonlogo.png);
+}
+.flecha{
+    background-image: URL(../imagenes/flecha.png);
+}
+.alerta{
+    background-image: URL(../imagenes/alerta.png);
+}
+.alertablanca{
+    background-image: URL(../imagenes/alertab.png);
+}
+.campana{
+    background-image: URL(../imagenes/campana.png);
+}
+.opciones{
+    background-image: URL(../imagenes/opciones.png);
+}
+.pañolero{
+    background-image: URL(../imagenes/panolero.jpg);
+}
+.chatbot{
+    background-image: URL(../imagenes/chatbot.png);
+}
+.imagen{
+    background-size: contain;
+    background-repeat:no-repeat;
+    background-position: center;
+}

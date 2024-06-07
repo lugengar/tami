@@ -1,0 +1,21 @@
+@keyframes sombra {
+    0%{
+        display: grid;
+        opacity: 0%;
+    }
+    100%{
+        display: grid;
+        opacity: 100%;
+    }
+}
+
+@keyframes sacarsombra{
+    0%{
+        opacity: 100%;
+        display: grid;
+    }
+    100%{
+        opacity: 0%;
+        display: none;
+    }
+}

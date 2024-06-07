@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #05031b;
+    margin: 0; /* Asegúrate de resetear el margen */
+}
+
+/* Estilos base para .contenedor-login y sus elementos */
+.contenedor-login {
+    background-color: #05031b;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%; /* Ancho relativo para responsividad */
+    max-width: 400px; /* Ancho máximo para dispositivos grandes */
+    margin: auto; /* Centrar en dispositivos más grandes */
+}
+
+.contenedor-login input[type="text"],
+.contenedor-login input[type="password"],
+.contenedor-login button {
+    width: 100%; /* Ancho relativo para responsividad */
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 20px;
+}
+
+.contenedor-login input[type="text"],
+.contenedor-login input[type="password"] {
+    border: 1px solid #3d3ae6;
+    background-color: #3d3ae6;
+}
+
+.contenedor-login input[type="text"]::placeholder,
+.contenedor-login input[type="password"]::placeholder {
+    color: white;
+}
+
+.logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+.contenedor-login img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.boton-iniciar {
+    background-color: #3d3ae6;
+    color: white;
+    border: none;
+}
+
+.boton-olvidado {
+    background-color: #05031b;
+    color: white;
+    border: 2px solid #caee52;
+}
+
+/* Media queries para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+    body {
+        padding: 10px; /* Agregar padding para no tocar los bordes */
+    }
+
+    .contenedor-login {
+        width: 90%; /* Ancho mayor para pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .contenedor-login img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .contenedor-login button {
+        width: 100%; /* Botones más anchos para pantallas pequeñas */
+    }
+}
