@@ -111,8 +111,8 @@ iframe{
 }
 #contenido{
     grid-area: CON;
-    background-color:white;
-    box-shadow: 1vh -0.5vh 3vh 0vh rgba(61, 58, 230, 0.1);
+    
+    
     
     display: grid;
     position:relative;
@@ -124,8 +124,8 @@ iframe{
 }
 #contenido3{
     grid-area: CON;
-    background-color:white;
-    box-shadow: 1vh -0.5vh 3vh 0vh rgba(61, 58, 230, 0.1);
+  
+
     display: grid;
     position:relative;
     grid-template:

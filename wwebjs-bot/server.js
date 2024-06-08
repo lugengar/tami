@@ -6,7 +6,8 @@ const { Client } = require('whatsapp-web.js');
 const basededatos = require("./basededatos.js")
 const chatbot = require("./chatbot.js")
 const app = express();
-const port = 3000;
+const PORT = 3000;
+const HOST = '192.168.100.6';
 
 // Configurar Express para servir archivos estáticos
 app.use(express.static('public'));
@@ -45,7 +46,7 @@ app.get('/generate-qr', (req, res) => {
                         remotePath: 'http://localhost:3000/content.html',
                     }
                 });
-                console.log(client);
+          
                 console.log("esperando qr..")
                 let sino = 0;
                 client.on('qr', (qr) => {
@@ -54,7 +55,7 @@ app.get('/generate-qr', (req, res) => {
                     qrcode.toDataURL(text, (err, url) => {
                         if (err) {
                             console.error(err);
-                            res.status(500).send('Error generando el código QR');
+                            res.send('Error generando el código QR');
                         } else {
                            if(sino == 0){
                                 res.send(url);
@@ -91,7 +92,7 @@ app.get('/generate-qr', (req, res) => {
                 // Inicializar el cliente
                 client.initialize().catch(err => {
                     console.error(err);
-                    res.status(500).send('Error inicializando el cliente');
+                   
                 });
          
             }else{
@@ -102,6 +103,6 @@ app.get('/generate-qr', (req, res) => {
 });
 
 // Iniciar el servidor
-app.listen(port, () => {
-    console.log(`Servidor corriendo en http://localhost:${port}`);
-});
+app.listen(PORT, HOST, () => {
+    console.log(`Servidor corriendo en http://${HOST}:${PORT}/`);
+  });

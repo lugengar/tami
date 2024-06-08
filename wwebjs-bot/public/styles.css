@@ -8,6 +8,14 @@ h1{
     grid-area: H1;
     text-align: center;
 }
+#qrCode{
+    font-family: "Days One", sans-serif;
+    font-size: 3vh;
+    font-weight: 200;
+    color:#4139E6;
+    grid-area: H1;
+    text-align: center;
+}
 form{
     grid-area: CON;
     display: flex ;
@@ -49,8 +57,17 @@ form{
     grid-template:
     "H1 H1 H1"7vh
     "CON CON CON"30vh
-    "QR QR QR"auto/
+    "QR QR QR"auto
+    "C C C"10vh /
     auto auto auto;
+}
+#contador{
+    grid-area: C;
+    font-family: "Days One", sans-serif;
+    font-size: 5vh;
+    font-weight: 200;
+    color:#4139E6;
+    text-align: center;
 }
 input{
     font-family: "Poppins", sans-serif;

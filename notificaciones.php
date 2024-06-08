@@ -18,13 +18,14 @@ if (!isset($_SESSION['id_usuario'])) {
 </head>
 <body>
     <div id="pagina">
-        <div id="header">
-            <a href="inicio.php" class="logo imagen"></a>
-            <button class="usuario imagen"></button>
-        </div>
+        
         <div id="subheader">
             <h1>Notificaciones de <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+        </div>
+        <div id="header">
+            <a href="inicio.php" class="logo imagen"></a>
+            <button class="usuario imagen"></button>
         </div>
         <div id="contenido">
            
