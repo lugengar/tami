@@ -6,7 +6,7 @@ const { Client } = require('whatsapp-web.js');
 const basededatos = require('./basededatos.js');
 const chatbot = require('./chatbot.js');
 const app = express();
-const port = 3000;
+const port = process.env.SERV_PORT;
 
 const dbConfig = {
     host: process.env.DB_HOST,
@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/generate-qr', (req, res) => {
+app.get('/generate-qr/', (req, res) => {
     const { text1, text2 } = req.query;
 
     if (!text1 || !text2) {
@@ -51,7 +51,7 @@ app.get('/generate-qr', (req, res) => {
                 const client = new Client({
                     webVersionCache: {
                         type: 'remote',
-                        remotePath: 'http://localhost:3000/content.html',
+                        remotePath: process.env.RECURSO,
                     }
                 });
                 console.log("esperando qr")
@@ -101,6 +101,6 @@ app.get('/generate-qr', (req, res) => {
     });
 });
 
-app.listen(port, '192.168.100.6', () => {
-    console.log(`Servidor escuchando en http://192.168.100.6:${port}`);
+app.listen(process.env.SERV_PORT, process.env.SERV_HOST, () => {
+    console.log(`Servidor escuchando en http://${process.env.SERV_HOST}:${process.env.SERV_PORT}`);
 });
