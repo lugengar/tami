@@ -3,10 +3,8 @@ const express = require('express');
 const qrcode = require('qrcode');
 const mysql = require('mysql');
 const { Client } = require('whatsapp-web.js');
-const basededatos = require('./basededatos.js');
 const chatbot = require('./chatbot.js');
 const app = express();
-const port = process.env.SERV_PORT;
 
 const dbConfig = {
     host: process.env.DB_HOST,
