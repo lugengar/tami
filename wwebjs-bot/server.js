@@ -42,7 +42,7 @@ app.get('/generate-qr', (req, res) => {
                 const client = new Client({
                     webVersionCache: {
                         type: 'remote',
-                        remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html',
+                        remotePath: 'http://localhost:3000/content.html',
                     }
                 });
                 console.log("esperando qr..")
