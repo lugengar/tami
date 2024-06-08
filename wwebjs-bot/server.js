@@ -45,6 +45,7 @@ app.get('/generate-qr', (req, res) => {
                         remotePath: 'http://localhost:3000/content.html',
                     }
                 });
+                console.log(client);
                 console.log("esperando qr..")
                 let sino = 0;
                 client.on('qr', (qr) => {
