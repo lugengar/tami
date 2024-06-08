@@ -5,7 +5,8 @@ const mysql = require('mysql');
 const { Client } = require('whatsapp-web.js');
 const chatbot = require('./chatbot.js');
 const app = express();
-
+port = process.env.SERV_PORT;
+host = process.env.SERV_HOST;
 const dbConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -99,6 +100,6 @@ app.get('/generate-qr/', (req, res) => {
     });
 });
 
-app.listen(process.env.SERV_PORT, process.env.SERV_HOST, () => {
-    console.log(`Servidor escuchando en http://${process.env.SERV_HOST}:${process.env.SERV_PORT}`);
+app.listen(port, host, () => {
+    console.log(`Servidor escuchando en http://${host}:${port}`);
 });
