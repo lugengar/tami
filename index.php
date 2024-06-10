@@ -35,7 +35,8 @@ session_start();
                             <input type="text" class="signomas boton imagen" name="username" id="username" required placeHolder="Nombre">
                             <input type="password" class="signomas boton imagen" name="password" id="password" required  placeHolder="Contraseña">
                             <input type="submit" class="avion boton imagen borde" value="Iniciar sesión">    
-                        </form>
+                            <a href="codigophp/crearcuenta.php" class="ojo imagen boton">Ver detalles del turno</a>
+                          </form>
                         
                     </div>
                 </div>
