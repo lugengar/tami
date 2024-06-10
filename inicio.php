@@ -39,7 +39,7 @@ include "codigophp/conexionbs.php";
                                 $result = $conn->query($sql);
                                 if ($result->num_rows > 0) {
                                     while($row = $result->fetch_assoc()) {
-                                        echo '<div class="rectangulo2"><h1>'.$row["fecha"]." ".$row["horario"].'</h1> <p>'.$row["nombre_cliente"].'</p> <button class="imagen opciones"></button></div>';
+                                        echo '<div class="rectangulo2"><h1>'.$row["fecha"]." ".$row["horario"].'</h1> <p>'.$row["nombre_cliente"].'</p> <button class="imagen"></button></div>';
                                     }
                                 } else {
                                     echo "<h1>NO HAY TURNOS AUN</h1>";

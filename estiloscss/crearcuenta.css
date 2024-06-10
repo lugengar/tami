@@ -1,4 +1,4 @@
-/* CSS */
+/* crearcuenta.css */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -22,6 +22,9 @@ body {
 
 .contenedor-login input[type="text"],
 .contenedor-login input[type="password"],
+.contenedor-login input[type="time"],
+.contenedor-login select,
+.contenedor-login textarea,
 .contenedor-login button,
 .contenedor-login .boton-sesion,
 .contenedor-login .boton-olvidado,
@@ -37,10 +40,13 @@ body {
 
 .contenedor-login input[type="text"]::placeholder,
 .contenedor-login input[type="password"]::placeholder,
+.contenedor-login input[type="time"]::placeholder,
+.contenedor-login select,
+.contenedor-login textarea,
 .contenedor-login .boton-sesion,
 .contenedor-login .boton-olvidado,
 .contenedor-login .boton-crear-cuenta {
-    color: black;
+    color: #999;
 }
 
 .logo {
@@ -52,61 +58,42 @@ body {
     margin-bottom: 20px;
 }
 
-.contenedor-login .foto-usuario {
+.foto-usuario {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     margin-bottom: 20px;
 }
 
-.boton-iniciar,
-.boton-crear-cuenta,
-.boton-sesion,
-.boton-olvidado {
-    width: calc(100% - 30px); /* Ajuste para dejar espacio para el borde */
-    text-decoration: none; /* Eliminar subrayado */
-    display: inline-block; /* Asegura que los botones se muestren en línea */
-}
-
+.boton-registrarse,
 .boton-iniciar {
-    color: black;
+    width: calc(100% - 30px);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
     border: none;
+    background-color: #f9f9f9;
+    color: black;
+    cursor: pointer;
 }
 
-.boton-crear-cuenta {
-    font-size: 14px; /* Reducción del tamaño del texto */
-    margin-top: 10px; /* Espacio entre el botón y los campos de entrada */
+.boton-registrarse:hover,
+.boton-iniciar:hover {
+    background-color: #ccc;
 }
 
-.boton-crear-cuenta:hover,
-.boton-sesion:hover,
-.boton-olvidado:hover {
-    background-color: #e6e6e6;
+.dia-horario {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
 }
 
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-
-    .contenedor-login {
-        width: 90%;
-    }
+.dia-horario label {
+    flex: 1;
 }
 
-@media (max-width: 480px) {
-    .logo {
-        width: 40px;
-        height: 40px;
-    }
-
-    .contenedor-login img {
-        width: 80px;
-        height: 80px;
-    }
-
-    .contenedor-login button,
-    .contenedor-login .boton-crear-cuenta {
-        width: calc(100% - 20px); /* Ajuste para pantallas más pequeñas */
-    }
+.dia-horario input[type="time"] {
+    flex: 1;
+    margin: 0 10px;
 }

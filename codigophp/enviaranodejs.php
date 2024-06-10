@@ -7,18 +7,13 @@ if (!isset($_SESSION['id_usuario'])) {
     header("Location: ./index.php");
     exit;
 }
-
+include "conexionbs.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['nombrebot']);
     $password = trim($_POST['contraseñabot']);
 
     // Conectar a la base de datos
-    $mysqli = new mysqli("localhost", "root", "", "tami");
-
-    if ($mysqli->connect_error) {
-        die("Conexión fallida: " . $mysqli->connect_error);
-    }
-
+    $mysqli = $conn;
     // Buscar el usuario
     $stmt = $mysqli->prepare("SELECT contrasena FROM chatbot WHERE nombre = ? AND usuario_fk = ?");
     $stmt->bind_param("ss", $username, $_SESSION['id_usuario']);

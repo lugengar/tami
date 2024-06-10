@@ -1,18 +1,14 @@
 <?php
 // login.php
 session_start();
+include "conexionbs.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
     // Conectar a la base de datos
-    $mysqli = new mysqli("localhost", "root", "", "tami");
-
-    if ($mysqli->connect_error) {
-        die("Conexión fallida: " . $mysqli->connect_error);
-    }
-
+    $mysqli = $conn;
     // Buscar el usuario
     $stmt = $mysqli->prepare("SELECT id, contraseña FROM usuario WHERE nombre = ?");
     $stmt->bind_param("s", $username);
@@ -30,12 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = $mysqli->query($sql);
             $_SESSION['id_usuario'] = $id;
             $_SESSION['username'] = $username;
-            header("Location: ../inicio.php");
-            echo "Contraseña correcta.";
             if ($result->num_rows = 0) {
                 header("Location: ../inicio.php");
             }else{
-                header("Location: ../pasoshorario.php");
+                header("Location: ./configurar_horarios.php");
             }
             exit;
         } else {
