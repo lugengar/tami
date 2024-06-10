@@ -41,6 +41,9 @@
 .usuario{
     background-image: URL(../imagenes/user.png);
 }
+.usuariohd{
+    background-image: URL(../imagenes/usuariohd.png);
+}
 .logoboton{
     background-image: URL(../imagenes/botonlogo.png);
 }

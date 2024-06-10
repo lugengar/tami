@@ -33,8 +33,8 @@ form{
     background-repeat:no-repeat;
     background-position: left;
     padding-left: 5vh;
-    border: 0.2vh solid #caee52  ;
-    box-shadow: inset 0 0 0 0.2vh #caee52
+    border: 0.2vh solid #e2e63a  ;
+    box-shadow: inset 0 0 0 0.2vh #e2e63a
 }
 #qrCode{
     grid-area: QR;
