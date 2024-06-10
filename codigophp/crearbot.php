@@ -7,7 +7,7 @@ if (!isset($_SESSION['id_usuario'])) {
     header("Location: ./index.php");
     exit;
 }
-
+include "conexionbs.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['nombrebot']);
     $password = trim($_POST['contraseñabot']);
@@ -21,11 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Conectar a la base de datos
-    $mysqli = new mysqli("localhost", "root", "", "tami");
-
-    if ($mysqli->connect_error) {
-        die("Conexión fallida: " . $mysqli->connect_error);
-    }
+    $mysqli = $conn;
 
     // Insertar el nuevo usuario
     $stmt = $mysqli->prepare("INSERT INTO chatbot (nombre, contrasena, usuario_fk) VALUES (?, ?, ?)");

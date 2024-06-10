@@ -5,7 +5,7 @@ session_start();
 if (!isset($_SESSION['id_usuario'])) {
     die("Error: No se ha iniciado sesión.");
 }
-
+include "conexionbs.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario_fk = $_SESSION['id_usuario'];
     $nombre = trim($_POST['nombre']);
@@ -20,11 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Conectar a la base de datos
-    $mysqli = new mysqli("localhost", "root", "", "tami");
-
-    if ($mysqli->connect_error) {
-        die("Conexión fallida: " . $mysqli->connect_error);
-    }
+    $mysqli = $conn;
 
     // Insertar el nuevo servicio
     $stmt = $mysqli->prepare("INSERT INTO servicios (nombre, precio, descripcion, duracion, estado, usuario_fk) VALUES (?, ?, ?, ?, ?, ?)");

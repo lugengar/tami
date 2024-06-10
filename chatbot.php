@@ -1,7 +1,7 @@
 <?php
 // dashboard.php
 session_start();
-
+include "./codigophp/conexionbs.php";
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: ./index.php");
     exit;
@@ -27,12 +27,21 @@ if (!isset($_SESSION['id_usuario'])) {
         <div id="contenido">
             <div class="contenido2">
                 <div class="con3" id="inicio">
-                    <iframe src="http://192.168.100.6:3000/" class="iframeqr" frameborder="0"></iframe>
-                    <form action="codigophp/crearbot.php" style="display: none;" method="post" style="color:black;">
-                        <input type="text" name ="nombrebot" style="background-color:black;" >
-                        <input type="password" name ="contraseñabot" style="background-color:black;" >
+                <?php
+                    $sql = "SELECT * FROM chatbot WHERE vendedor_fk = ".$_SESSION['id_usuario'];
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        echo('<iframe src="http://192.168.100.6:3000/" class="iframeqr" frameborder="0"></iframe>');
+                    } else {
+                        echo ('<form action="codigophp/crearbot.php"  method="post" style="color:black;">
+                        <input type="text" name ="nombrebot" style="background-color:black;" required>
+                        <input type="number" name ="nombrebot" style="background-color:black;" required>
+                        <input type="password" name ="contraseñabot" style="background-color:black;" required>
                         <input type="submit" style="background-color:black;" >
-                    </form>
+                    </form>');
+                    }
+                ?>
+                    
                 </div>
             </div>
         </div>

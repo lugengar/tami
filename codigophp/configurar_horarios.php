@@ -1,7 +1,7 @@
 <?php
 // configurar_horarios.php
 session_start();
-
+include "conexionbs.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($_SESSION['id_usuario'])) {
         die("Error: No se ha iniciado sesión.");
@@ -26,11 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Conectar a la base de datos
-    $mysqli = new mysqli("localhost", "root", "", "tami");
+    $mysqli = $conn;
 
-    if ($mysqli->connect_error) {
-        die("Conexión fallida: " . $mysqli->connect_error);
-    }
+
 
     // Preparar los datos para la consulta
     $horarios_json = json_encode($horarios);

@@ -1,7 +1,7 @@
 <?php
 // register.php
 session_start();
-
+include "conexionbs.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
@@ -10,16 +10,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($username) || empty($password)) {
         die('Por favor, complete todos los campos.');
     }
-
-    // Hashear la contraseña
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "SELECT * FROM usuario WHERE nombre = ".$username;
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        echo "Nombre ya utilizado";
+        exit;
+    } else {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Conectar a la base de datos
-    $mysqli = new mysqli("localhost", "root", "", "tami");
-
-    if ($mysqli->connect_error) {
-        die("Conexión fallida: " . $mysqli->connect_error);
-    }
+    $mysqli = $conn;
 
     // Insertar el nuevo usuario
     $stmt = $mysqli->prepare("INSERT INTO usuario (nombre, contraseña) VALUES (?, ?)");
@@ -32,13 +32,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['id_usuario'] = $user_id; // Guardar el ID del usuario en la sesión
 
         // Redirigir al formulario de configurar horarios
-        header("Location: configurar_horarios.php");
+        header("Location: ../inicio.php");
         exit;
     } else {
         echo "Error en el registro.";
     }
 
-    $stmt->close();
+    $stmt->close(); 
+    }
+    // Hashear la contraseña
+   
     $mysqli->close();
 }
 ?>
@@ -52,8 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <form class="contenedor-login" action="./crearcuenta.php" method="post">
-        <img src="imagenes/logogrande.png" alt="Logo" class="logo">
-        <img src="imagenes/user.png" alt="Foto de Usuario" class="foto-usuario">
+        <img src="../imagenes/logogrande.png" alt="Logo" class="logo">
+        <img src="../imagenes/user.png" alt="Foto de Usuario" class="foto-usuario">
 
         <input type="text" class="boton-nombre" placeholder="Nombre de usuario" name="username" id="username" required><br>
         <input type="password" class="boton-iniciar" placeholder="Contraseña" name="password" id="password" required><br>
