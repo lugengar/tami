@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->affected_rows > 0) {
         // Redirigir a la configuración de servicios
-        header("Location: ../inicio.php");
+        header("Location: ../notificaciones.php");
         exit;
     } else {
         echo "Error al guardar los horarios o no se realizaron cambios.";
@@ -47,13 +47,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configurar Servicios</title>
     <link rel="stylesheet" href="../estiloscss/crearcuenta.css">
+    <link rel="stylesheet" href="../estiloscss/imagenes.css">
 </head>
-<body>
+<body style="background-color: #4139E6;">
     <form class="contenedor-login" action="configurar_servicios.php" method="post">
-        <img src="../imagenes/logogrande.png" alt="Logo" class="logo">
+        <img  class="logo imagen">
         <img src="../imagenes/user.png" alt="Foto de Usuario" class="foto-usuario">
 
-        <h2>Agregar Servicio</h2>
+        <h2 style="color:white;">Agregar Servicio</h2>
 
         <input type="text" name="nombre" id="nombre" placeholder="Nombre del Servicio" required><br>
         <input type="text" name="precio" id="precio" placeholder="Precio" required><br>

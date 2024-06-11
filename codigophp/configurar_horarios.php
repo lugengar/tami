@@ -2,6 +2,7 @@
 // configurar_horarios.php
 session_start();
 include "conexionbs.php";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($_SESSION['id_usuario'])) {
         die("Error: No se ha iniciado sesión.");
@@ -28,26 +29,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Conectar a la base de datos
     $mysqli = $conn;
 
-
-
     // Preparar los datos para la consulta
     $horarios_json = json_encode($horarios);
     $dias_no_laborales_json = json_encode($dias_no_laborales);
 
     // Insertar o actualizar los horarios del usuario
-    $stmt = $mysqli->prepare("INSERT INTO horarios (usuario_fk, horarios, dias_no_laborales) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE horarios = VALUES(horarios), dias_no_laborales = VALUES(dias_no_laborales)");
-    $stmt->bind_param("sss", $usuario_fk, $horarios_json, $dias_no_laborales_json);
-    $stmt->execute();
-
-    if ($stmt->affected_rows > 0) {
-        // Redirigir a la configuración de servicios
-        header("Location: configurar_servicios.php");
-        exit;
+    $stmt = $mysqli->prepare("
+        INSERT INTO horarios (usuario_fk, horarios, dias_no_laborales) 
+        VALUES (?, ?, ?) 
+        ON DUPLICATE KEY UPDATE 
+            horarios = VALUES(horarios), 
+            dias_no_laborales = VALUES(dias_no_laborales)
+    ");
+    if ($stmt) {
+        $stmt->bind_param("sss", $usuario_fk, $horarios_json, $dias_no_laborales_json);
+        if ($stmt->execute()) {
+            // Redirigir a la configuración de servicios
+            header("Location: ../notificaciones.php");
+            exit;
+        } else {
+            echo "Error al ejecutar la consulta: " . $stmt->error;
+        }
+        $stmt->close();
     } else {
-        echo "Error al guardar los horarios o no se realizaron cambios.";
+        echo "Error al preparar la consulta: " . $mysqli->error;
     }
 
-    $stmt->close();
     $mysqli->close();
 }
 ?>
@@ -59,13 +66,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configurar Horarios</title>
     <link rel="stylesheet" href="../estiloscss/crearcuenta.css">
+    <link rel="stylesheet" href="../estiloscss/imagenes.css">
 </head>
-<body>
+<body style="background-color: #4139E6;">
     <form class="contenedor-login" action="configurar_horarios.php" method="post">
-        <img src="../imagenes/logogrande.png" alt="Logo" class="logo">
+        <img  class="logo imagen">
         <img src="../imagenes/user.png" alt="Foto de Usuario" class="foto-usuario">
         
-        <h2>Configurar Horarios</h2>
+        <h2 style="color:white;">Configurar Horarios</h2>
         
         <?php
         $dias_semana = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];

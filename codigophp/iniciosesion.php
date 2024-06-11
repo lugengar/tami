@@ -20,17 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_result($id, $hashed_password);
         $stmt->fetch();
         if (password_verify($password, $hashed_password)) {
-            // Iniciar sesión exitosa
     
-            $sql = "SELECT * FROM horarios WHERE usuario_fk = $id";
-            $result = $mysqli->query($sql);
             $_SESSION['id_usuario'] = $id;
             $_SESSION['username'] = $username;
-            if ($result->num_rows = 0) {
-                header("Location: ../inicio.php");
-            }else{
-                header("Location: ./configurar_horarios.php");
-            }
+           
+            header("Location: ../inicio.php");
             exit;
         } else {
             echo "Contraseña incorrecta.";

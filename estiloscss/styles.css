@@ -6,6 +6,11 @@
 a{
     text-decoration: none;
 }
+.borde{
+    border: 0.2vh solid #e2e63a  ;
+    box-shadow: inset 0 0 0 0.2vh #e2e63a;
+    background-color: transparent;
+}
 h1{
     font-family: "Days One", sans-serif;
     font-size: 2vh;
@@ -71,6 +76,20 @@ iframe{
     auto auto auto;
     background-color: white;
 }
+#pagina3{
+    position: absolute;
+    right:0%;
+    top:0%;
+    height:100%;
+    width: 100%;
+    display:grid;
+    grid-template:
+    "HEA HEA HEA"7vh
+    "SHEA SHEA SHEA"25vh
+    "CON CON CON"auto/
+    auto auto auto;
+    background-color: white;
+}
 #header{
     padding-left:1vh;
     padding-right:1vh;
@@ -102,6 +121,12 @@ iframe{
     grid-area: SHEA;
     background-color: #4139E6;
     border-radius: 0vh 0vh 4vh 4vh;
+}
+#subheader2{
+    background-position: bottom;
+    overflow: hidden;
+    display: grid;
+    grid-area: SHEA;
 }
 #subheader h1{
     grid-area: TITULO;
@@ -420,7 +445,7 @@ grid-template:
 }
 }
 
-#sombra{
+.sombra{
     background: linear-gradient(13deg,rgb(0,0,0,1), rgb(0,0,0,0.1));
     backdrop-filter: blur(1vh);
     position:absolute;

@@ -25,7 +25,7 @@ include "codigophp/conexionbs.php";
         </div>
         <div id="header">
             <a href="inicio.php" class="logo imagen" ></a>
-            <button class="usuario imagen"></button>
+            <button class="usuario imagen" id="user"></button>
         </div>
         
         <div id="contenido">
@@ -55,29 +55,27 @@ include "codigophp/conexionbs.php";
             <a href="turnos.php" class="logoboton imagen centro">Turnos</a>
             <a href="chatbot.php" class="chatbot imagen derecha">Chatbot</a>
         </div>
-        <div id="sombra">
+    
+    <div id="sombra2" class="sombra">
         <div class="contenidosombra">
-        <button class="barra">
+            <button class="barra" id="opcionequis2">
                 <div class="equis"></div>
-                    <div>Volver</div>
-                    <div></div>
+                <div>Volver</div>
+                <div></div>
             </button>
             <div class="contenido2">
                 <div class="con3" id="inicio">
                     <div class="scroll-y" style="height: 100%; padding-top:2vh;">
                         <div class="conscroll-y">
-                                <button onclick="console.log('hola')" class="ojo imagen boton">Ver detalles del turno</button>                  
-                                <button onclick="console.log('hola')" class="basura imagen boton">Cancelar turno</button>
+                            <a href="codigophp/cerrarsesion.php" class="flecha imagen boton">Cerrar sesión</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
    
 </body>
 </html>
 
-
-<script src="codigojs/sombra.js"></script>
+<script src="./codigojs/sombra2.js"></script>

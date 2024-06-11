@@ -31,11 +31,11 @@ if (!isset($_SESSION['id_usuario'])) {
            
             <div class="contenido2">
                 <div class="con3" id="inicio">
-                <h1>NOTIFICACIONES</h1>
+                <h1>SERVICIOS</h1>
                     <div class="scroll-y" style="height: 100%;">
                         <div class="conscroll-y">
-                            <div class="rectangulo2"><h1>DIA Y HORA</h1> <p>NOTIFICACION</p> <button class="imagen opciones"></button></div>         
-                                           
+                        <a href="./codigophp/configurar_servicios.php" class="signomas imagen boton">Añadir servicio</a>                       
+                        <a href="./codigophp/configurar_horarios.php" class="intercambio imagen boton">Cambiar horarios</a>                       
                         </div>
                     </div>
                 </div>
