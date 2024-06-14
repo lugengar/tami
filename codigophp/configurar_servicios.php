@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->affected_rows > 0) {
         // Redirigir a la configuración de servicios
-        header("Location: ../notificaciones.php");
+        header("Location: ../servicios.php");
         exit;
     } else {
         echo "Error al guardar los horarios o no se realizaron cambios.";

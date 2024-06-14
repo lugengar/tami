@@ -48,7 +48,7 @@ if (!isset($_SESSION['id_usuario'])) {
             </div>
         </div>
         <div id="footer">
-            <a href="notificaciones.php" class="campana imagen izquierda">Notificaciones</a>
+            <a href="servicios.php" class="campana imagen izquierda">Servicios</a>
             <a href="turnos.php" class="logoboton imagen centro">Turnos</a>
             <a href="inicio.php" class="flecha imagen derecha">Volver</a>
         </div>

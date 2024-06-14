@@ -76,7 +76,7 @@ require "codigophp/calendario.php";
             </div>
         </div>
         <div id="footer">
-            <a href="notificaciones.php" class="campana imagen izquierda">Notificaciones</a>
+            <a href="servicios.php" class="campana imagen izquierda">Servicios</a>
             <a href="inicio.php" class="flecha imagen centro">Volver</a>
             <a href="chatbot.php" class="chatbot imagen derecha">Chatbot</a>
         </div>

@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sss", $usuario_fk, $horarios_json, $dias_no_laborales_json);
         if ($stmt->execute()) {
             // Redirigir a la configuración de servicios
-            header("Location: ../notificaciones.php");
+            header("Location: ../servicios.php");
             exit;
         } else {
             echo "Error al ejecutar la consulta: " . $stmt->error;

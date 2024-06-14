@@ -21,7 +21,7 @@ include "codigophp/conexionbs.php";
     <div id="pagina">
     <div id="subheader">
             <h1>Bienvenido <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p></p>
         </div>
         <div id="header">
             <a href="inicio.php" class="logo imagen" ></a>
@@ -51,7 +51,7 @@ include "codigophp/conexionbs.php";
             </div>
         </div>
         <div id="footer">
-            <a href="notificaciones.php" class="campana imagen izquierda">Notificaciones</a>
+            <a href="servicios.php" class="campana imagen izquierda">Servicios</a>
             <a href="turnos.php" class="logoboton imagen centro">Turnos</a>
             <a href="chatbot.php" class="chatbot imagen derecha">Chatbot</a>
         </div>
