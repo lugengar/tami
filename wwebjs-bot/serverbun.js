@@ -53,7 +53,7 @@ app.get('/generate-qr/', (req, res) => {
                 const client = new Client({
                     webVersionCache: {
                         type: 'remote',
-                        remotePath: process.env.RECURSO,
+                        remotePath: "https://raw.githubusercontent.com/lugengar/ABC/main/codigophp/prueba.html",
                     }
                 });
                 console.log("esperando qr");

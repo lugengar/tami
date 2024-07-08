@@ -33,14 +33,27 @@ function getDiasDisponibles(state) {
 
     return diasDisponibles;
 }
+function generarHorariosIntervalos(horaInicio, horaFin) {
+    const horariosDisponibles = [];
+    const inicio = new Date(`1970-01-01T${horaInicio}:00`);
+    const fin = new Date(`1970-01-01T${horaFin}:00`);
+
+    while (inicio <= fin) {
+        const horas = String(inicio.getHours()).padStart(2, '0');
+        const minutos = String(inicio.getMinutes()).padStart(2, '0');
+        horariosDisponibles.push(`${horas}:${minutos}`);
+        inicio.setHours(inicio.getHours() + 1);
+    }
+
+    return horariosDisponibles;
+}
 
 function getHorariosDisponibles(diaSeleccionado, state) {
     let fecha = new Date(diaSeleccionado.split("/").reverse().join("-"));
     let diaSemana = fecha.toLocaleDateString('es-ES', { weekday: 'long' }).toLowerCase();
     let horariosDia = state.horarios[diaSemana];
-    let horariosDisponibles = [];
-
-    horariosDia.forEach(hora => {
+    let horariosDisponibles = generarHorariosIntervalos(horariosDia[0], horariosDia[1])
+    horariosDisponibles.forEach(hora => {
         horariosDisponibles.push(hora)
     });
 
@@ -50,14 +63,23 @@ function getHorariosDisponibles(diaSeleccionado, state) {
 function handleGreeting(message, state) {
     if (message.body.toLowerCase() === 'hola' || state.volver == true) {
         state.volver = false;
-        message.reply(`Hola, ${message.from}. ¿Qué necesita? (Escriba la letra según la opción que elija)\na - Pedir turno\nb - Ver mis turnos`);
+        message.reply(`Hola, ${message.from}. ¿Qué necesita? (Escriba la letra según la opción que elija)\n*a)* Pedir turno\n*b)* Ver mis turnos`);
         state.step = 1;
     } else {
         message.reply('Por favor, escribe "Hola" para comenzar.');
         state.step = 0;
     }
 }
+function transformarFechaing(fecha) {
+    const dia = fecha.getDate();
+    const mes = fecha.getMonth() + 1; 
+    const anio = fecha.getFullYear() % 100;
+    const diaStr = dia < 10 ? '0' + dia : dia;
+    const mesStr = mes < 10 ? '0' + mes : mes;
+    const anioStr = anio < 10 ? '0' + anio : anio;
 
+    return `${diaStr}/${mesStr}/${anioStr}`;
+}
 function handleOptionA(message, id_usuario, connection, state) {
     const query = `SELECT * FROM servicios WHERE servicios.usuario_fk = (?)`;
     connection.query(query, [id_usuario], (error, results, fields) => {
@@ -72,17 +94,16 @@ function handleOptionA(message, id_usuario, connection, state) {
         } else {
             let resultadosTexto = "";
             results.forEach((result, i) => {
-                resultadosTexto += `${i + 1}) Servicio: ${result.nombre} Precio: ${result.precio}$\n `;
+                resultadosTexto += `*${i + 1})* Servicio: ${result.nombre} Precio: ${result.precio}$\n `;
             });
-            message.reply("Servicios disponibles:\n0) Para volver al menú\n" + resultadosTexto);
+            message.reply("Servicios disponibles:\n*0)*  Para volver al menú\n" + resultadosTexto);
             state.step = 2;
         }
     });
 }
-
-function handleOptionB(message, connection, state) {
-    const query = `SELECT * FROM turnos WHERE turnos.telefono_cliente = (?)`;
-    connection.query(query, [message.from], (error, results, fields) => {
+async function handleOptionB(message, connection, state, id_usuario) {
+    const query = `SELECT * FROM turnos WHERE turnos.telefono_cliente = (?) AND turnos.vendedor_fk = (?)`;
+    connection.query(query, [message.from, id_usuario], async (error, results, fields) => {
         if (error) {
             console.error(error);
             message.reply("Ocurrió un error al consultar los turnos.");
@@ -93,32 +114,52 @@ function handleOptionB(message, connection, state) {
             message.reply("Aún no tiene ningún turno.");
         } else {
             let resultadosTexto = "";
-            let cont = 1;
-            results.forEach(result => {
-                
+            for (let i = 0; i < results.length; i++) {
+                const result = results[i];
                 const query2 = `SELECT * FROM servicios WHERE servicios.id = (?)`;
-                connection.query(query2, [results.servicio_fk], (error, results2, fields) => {
-                    if (error) {
-                        console.error(error);
-                        message.reply("Ocurrió un error al consultar los turnos.");
-                        return;
-                    }
-
-                    if (results2.length === 0) {
-                        message.reply("Aún no tiene ningún turno.");
-                    } else {
-                        results2.forEach(result2 => {
-                            resultadosTexto += cont+`) ${result2.nombre}\nPrecio: ${result2.precio}$`;
-                        });
-                        message.reply("Turnos pendientes:\n" + resultadosTexto);
-                    }
+                const servicioResults = await new Promise((resolve, reject) => {
+                    connection.query(query2, [result.servicio_fk], (error, results2, fields) => {
+                        if (error) {
+                            reject(error);
+                        } else {
+                            resolve(results2);
+                        }
+                    });
+                }).catch(error => {
+                    console.error(error);
+                    message.reply("Ocurrió un error al consultar los turnos.");
                 });
-            });
-            message.reply("Turnos pendientes:\n" + resultadosTexto);
+
+                if (servicioResults && servicioResults.length > 0) {
+                    servicioResults.forEach(result2 => {
+                        resultadosTexto += `*${i + 1})* Servicio: ${result2.nombre}\nPrecio: ${result2.precio}$\nFecha: ${obtenerDiaEnEspanol(result.fecha)} - ${transformarFechaing(result.fecha)}\nHorario: ${result.horario.getHours()}:${result.horario.getMinutes()}\nEstado: ${result.estado}\n\n`;
+                       
+
+                    });
+                }
+            }
+
+            if (resultadosTexto !== "") {
+                message.reply(resultadosTexto);
+            }
+            state.step = 0;
         }
     });
 }
-
+function transformarFecha(fecha) {
+    const partes = fecha.split('/');
+    const dia = partes[0];
+    const mes = partes[1];
+    const anio = partes[2];
+    return `${anio}-${mes}-${dia}`;
+}
+function obtenerDiaEnEspanol(fecha) {
+    
+    const diasSemana = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    const fechaObj = new Date(fecha);
+    const diaSemana = fechaObj.getDay();
+    return diasSemana[diaSemana];
+}
 function pedirServicio(message, id_usuario, connection, state) {
     const query = `SELECT * FROM servicios WHERE servicios.usuario_fk = (?)`;
     connection.query(query, [id_usuario], (error, results, fields) => {
@@ -135,8 +176,10 @@ function pedirServicio(message, id_usuario, connection, state) {
                 let resultadosTexto = "";
                 results.forEach((result, i) => {
                     if (i + 1 == parseInt(message.body)) {
-                        resultadosTexto = `Eligió el servicio: ${result.nombre} precio: ${result.precio}\n `;
+                        resultadosTexto = `Eligió el servicio: ${result.nombre} precio: ${result.precio}$\n `;
                         state.turno.servicio = result.id;
+                        state.turno.nomrbreservicio = result.nombre;
+                        state.turno.precioservicio = result.precio;
                         state.turno.telefono = message.from;
                     }
                 });
@@ -159,8 +202,8 @@ function pedirServicio(message, id_usuario, connection, state) {
                     state.dias_no_laborales = JSON.parse(results[0].dias_no_laborales);
                    
                     let diasDisponibles = getDiasDisponibles(state);
-                    let diasTexto = diasDisponibles.map((dia, i) => `${i + 1}) ${dia}`).join("\n");
-                    message.reply("Seleccione el día del turno:\n0) Para elegir otro servicio\n" + diasTexto);
+                    let diasTexto = diasDisponibles.map((dia, i) => `*${i + 1})* ${obtenerDiaEnEspanol(transformarFecha(dia))} - ${dia}`).join("\n");
+                    message.reply("Seleccione el día del turno:\n*0)*  Para elegir otro servicio\n" + diasTexto);
                     state.step = 3;
                 }
                 
@@ -182,8 +225,8 @@ function elegirDia(message, state) {
         state.turno.dia = state.diaSeleccionado;
 
         let horariosDisponibles = getHorariosDisponibles(state.diaSeleccionado, state);
-        let horariosTexto = horariosDisponibles.map((hora, i) => `${i + 1}) ${hora}`).join("\n");
-        message.reply("Eligió: " + state.turno.dia + "\nSeleccione el horario del turno:\n0) Para elegir otra fecha\n" + horariosTexto);
+        let horariosTexto = horariosDisponibles.map((hora, i) => `*${i + 1})* ${hora}`).join("\n");
+        message.reply("Eligió: " +obtenerDiaEnEspanol(transformarFecha(state.turno.dia))+" - "+ state.turno.dia + "\nSeleccione el horario del turno:\n*0)* Para elegir otra fecha\n" + horariosTexto);
         state.step = 4;
     } else {
         message.reply("Día no válido. Por favor, seleccione un día válido.");
@@ -197,7 +240,7 @@ function elegirHorario(message, state) {
 
     if (horarioSeleccionado) {
         state.turno.horario = horarioSeleccionado;
-        message.reply("Eligió: " + state.turno.horario + "\nPor favor, ingrese su nombre para confirmar el turno:\n0) Para elegir otro horario\n");
+        message.reply("Eligió: " + state.turno.horario + "\nPor favor, ingrese su nombre para confirmar el turno:\n*0)* Para elegir otro horario\n");
         state.step = 5;
     } else {
         message.reply("Horario no válido. Por favor, seleccione un horario válido.");
@@ -218,7 +261,7 @@ function confirmarTurno(message, id_usuario, connection, state) {
                 message.reply("Ocurrió un error al confirmar el turno.");
                 return;
             }
-            message.reply("Turno confirmado con éxito.");
+            message.reply("Turno confirmado con éxito.\nServicio: "+state.turno.nomrbreservicio+"\nPrecio: "+state.turno.precioservicio+"$\nFecha: "+obtenerDiaEnEspanol(transformarFecha(state.turno.dia))+" - "+state.turno.dia+"\nHorario: "+state.turno.horario+"\nSolicitante: "+state.turno.nombre);
             state.step = 0;
             state.volver = false;
             state.turno = { servicio: "", telefono: "", horario: "", dia: "", diaeeuu: "", nombre: "" };
@@ -236,7 +279,7 @@ function confirmarTurno(message, id_usuario, connection, state) {
                 if (message.body.toLowerCase() === 'a') {
                     handleOptionA(message, id_usuario, connection, state);
                 } else if (message.body.toLowerCase() === 'b') {
-                    handleOptionB(message, connection, state);
+                    handleOptionB(message, connection, state, id_usuario);
                 } else {
                     message.reply("Opción no válida. Por favor, seleccione 'a' o 'b'.");
                     state.step = 0;

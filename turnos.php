@@ -20,6 +20,7 @@ require "codigophp/calendario.php";
     <link rel="stylesheet" href="estiloscss/styles.css">
     <link rel="stylesheet" href="estiloscss/imagenes.css">
     <link rel="stylesheet" href="estiloscss/calendario.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="/imagenes/userhd.png">
 </head>
 <body>
     <div id="pagina2">

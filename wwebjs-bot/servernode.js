@@ -48,11 +48,10 @@ app.get('/generate-qr/', (req, res) => {
                 return res.status(404).send('No se encontraron resultados');
             }else{
                 const client = new Client({
-                    webVersionCache: {
-                        type: 'remote',
-                        remotePath: process.env.RECURSO,
-                    }
+                   
+                    
                 });
+                
                 console.log("esperando qr")
                 let sino = 0;
 

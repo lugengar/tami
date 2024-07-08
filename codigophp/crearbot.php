@@ -57,5 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Cerrar la conexión
     $mysqli->close();
+    header("Location: ../chatbot.php");
+    exit;
 }
 ?>
